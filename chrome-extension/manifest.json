@@ -1,0 +1,21 @@
+{
+    "manifest_version": 2,
+    "name": "Templates for Gmail",
+    "description": "Create email snippets on Gmail",
+    "version": "1.0",
+    "icons": {
+        "48": "assets/images/icon48.png"
+    },
+    "permissions": [
+        "https://mail.google.com/",
+        "https://inbox.google.com/"
+    ],
+    "web_accessible_resources": ["assets/images/paper.png"],
+    "content_scripts" : [
+        {
+            "matches": ["https://mail.google.com/*", "https://inbox.google.com/*"],
+            "css": ["assets/styles/main.css"],
+            "js": ["assets/js/inboxsdk.js", "app/index.js"]
+        }
+    ]
+}
