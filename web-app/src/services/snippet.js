@@ -6,3 +6,10 @@ export const getSnippets = (email) => async (dispatch) => {
         dispatch(setSnippets(response.data));
     })
 }
+
+export const createSnipet = (data, handler = () => {}) => {
+    api.post('snippets', data).then((response) => {})
+        .finally(() => {
+            handler();
+        })
+}

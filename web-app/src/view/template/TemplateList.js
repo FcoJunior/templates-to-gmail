@@ -31,7 +31,7 @@ const useStyle = makeStyles((theme) => ({
     }
 }))
 
-const TemplateListView = () => {
+const TemplateList = () => {
     const dispatch = useDispatch();
     const useClasses = useStyle();
     const { userEmail, snippets } = useSelector(state => state.snippet);
@@ -54,7 +54,7 @@ const TemplateListView = () => {
                     <ListItemLink
                         path="/templates/new" 
                         icon={<AddIcon />}
-                        name="Make this daft a Snippet"/>
+                        name="Make this daft a Snippet" />
                     <ListItemLink 
                         path="/settings"
                         icon={<SettingsIcon />}
@@ -65,4 +65,4 @@ const TemplateListView = () => {
     )
 }
 
-export default TemplateListView;
+export default TemplateList;

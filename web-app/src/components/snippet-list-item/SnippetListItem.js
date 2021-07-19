@@ -19,16 +19,6 @@ const useStyle = makeStyles((theme) => ({
         '& > span': {
             flexGrow: 1
         }
-    },
-    overrides: {
-        root: {
-            '&:nth-child(1)': {
-                flexGrow: 5
-            },
-            '&:nth-child(2)': {
-                flexGrow: 1
-            },
-        }
     }
 }));
 
