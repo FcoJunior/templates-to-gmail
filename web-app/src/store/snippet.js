@@ -3,26 +3,29 @@ import { createSlice } from "@reduxjs/toolkit";
 const slice = createSlice({
     name: 'snippet',
     initialState: {
-        snippets: [
-            {
-                id: 1,
-                name: 'First test',
-                text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
-            },
-            {
-                id: 2,
-                name: 'Second test',
-                text: 'Maecenas arcu nulla, mattis vitae nisi vel, sodales lobortis odio.'
-            },
-        ]
+        userEmail: '',
+        snippets: []
     },
     reducers: {
-
+        setSnippets: (state, action) => {
+            const { data } = action.payload;
+            return {
+                ...state,
+                snippets: data
+            }
+        },
+        setUserEmail: (state, action) => {
+            return {
+                ...state,
+                userEmail: action.payload
+            }
+        }
     }
 });
 
 export default slice.reducer;
 
 export const {
-
+    setSnippets,
+    setUserEmail
 } = slice.actions;

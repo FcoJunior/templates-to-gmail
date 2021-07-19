@@ -4,11 +4,11 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import PropTypes from 'prop-types';
 
-const click = (text) => {
-    window.parent.postMessage({
-        action: 'WriteTemplate',
-        text: text
-    }, '*');
+const formatText = (text = '') => {
+    if (text.length > 20) {
+        return text.substr(0, 15) + '...';
+    }
+    return text;
 }
 
 const useStyle = makeStyles((theme) => ({
@@ -16,12 +16,26 @@ const useStyle = makeStyles((theme) => ({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
+        '& > span': {
+            flexGrow: 1
+        }
+    },
+    overrides: {
+        root: {
+            '&:nth-child(1)': {
+                flexGrow: 5
+            },
+            '&:nth-child(2)': {
+                flexGrow: 1
+            },
+        }
     }
 }));
 
 const SnippetListItem = ({
     mode = 'View',
     snipet,
+    handler,
     ...props
 }) => {
     const useClasses = useStyle();
@@ -30,12 +44,12 @@ const SnippetListItem = ({
     if (mode === 'View') {
         item = <ListItemText 
             className={useClasses.inlineItem} 
-            primary={snipet.name} 
-            secondary={snipet.text} />;
+            primary={snipet.title} 
+            secondary={formatText(snipet.body)} />;
     }
 
     return(
-        <ListItem button {...props} onClick={() => click(snipet.text)}>
+        <ListItem button {...props} onClick={handler}>
             { item }
         </ListItem>
     )
@@ -44,10 +58,11 @@ const SnippetListItem = ({
 SnippetListItem.propTypes = {
     mode: PropTypes.oneOf(['View', 'Edit']),
     snipet: PropTypes.shape({
-        id: PropTypes.number,
+        id: PropTypes.node.isRequired,
         name: PropTypes.string,
         text: PropTypes.string
-    })
+    }),
+    handler: PropTypes.func
 }
 
 export default SnippetListItem;
