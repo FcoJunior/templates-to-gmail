@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import List from '@material-ui/core/List';
 import AddIcon from '@material-ui/icons/Add';
 import SettingsIcon from '@material-ui/icons/Settings';
 import SnippetList from '../../components/snippet-list/SnippetList'
@@ -20,14 +19,6 @@ const useStyle = makeStyles((theme) => ({
         height: '100%',
         display: 'flex',
         flexDirection: 'column'
-    },
-    snippetsContent: {
-        flexGrow: 1,
-        overflow: 'auto'
-    },
-    link: {
-        textDecoration: 'none',
-        color: theme.palette.text.primary
     }
 }))
 
@@ -44,22 +35,20 @@ const TemplateList = () => {
 
     return(
         <div className={useClasses.root}>
-            <SnippetList title="Personal Snippets" className={useClasses.snippetsContent}>
+            <SnippetList title="Personal Snippets">
                 {snippets.map((x) =>
                     <SnippetListItem key={x.id} snipet={x} handler={() => sendSnippetToGmail(x.body)} />
                 )}
             </SnippetList>
             <Footer>
-                <List component="nav">
-                    <ListItemLink
-                        path="/templates/new" 
-                        icon={<AddIcon />}
-                        name="Make this daft a Snippet" />
-                    <ListItemLink 
-                        path="/settings"
-                        icon={<SettingsIcon />}
-                        name="Manage Snippet"/>
-                </List>
+                <ListItemLink
+                    path="/templates/new" 
+                    icon={<AddIcon />}
+                    name="Make this draft a Snippet" />
+                <ListItemLink 
+                    path="/templates/settings"
+                    icon={<SettingsIcon />}
+                    name="Manage Snippet"/>
             </Footer>
         </div>
     )

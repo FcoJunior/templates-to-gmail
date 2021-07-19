@@ -3,9 +3,10 @@ import { useFormik } from 'formik';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { createSnipet } from './../../services/snippet';
+import { createSnippet, updateSnippet } from './../../services/snippet';
+import { setCurrentSnippet } from './../../store/snippet';
 
 const useStyle = makeStyles((theme) => ({
     root: {
@@ -38,13 +39,20 @@ const useStyle = makeStyles((theme) => ({
 
 const TemplateForm = () => {
     const useClasses = useStyle();
+    const dispatch = useDispatch();
     const history = useHistory();
-    const { userEmail } = useSelector(state => state.snippet);
+    const { userEmail, currentSnippet } = useSelector(state => state.snippet);
     
+    const clearCurrentSnippet = () => {
+        if (currentSnippet) {
+            dispatch(setCurrentSnippet(null))
+        }
+    }
+
     const formik = useFormik({
         initialValues: {
-            title: '',
-            body: ''
+            title: currentSnippet ? currentSnippet.title : '',
+            body: currentSnippet ? currentSnippet.body : ''
         },
         onSubmit: (values) => {
             var data = {
@@ -52,13 +60,20 @@ const TemplateForm = () => {
                 email: userEmail
             }
 
-            createSnipet(data, () => {
-                goBack();
-            });
+            if (!currentSnippet) {
+                createSnippet(data, () => {
+                    goBack();
+                });
+            } else {
+                updateSnippet(currentSnippet.id, data, () => {
+                    goBack();
+                })
+            }
         }
     })
 
     const goBack = () => {
+        clearCurrentSnippet();
         history.push(`/templates/${userEmail}`)
     }
 

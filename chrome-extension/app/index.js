@@ -11,14 +11,14 @@ InboxSDK.load(2, 'sdk_inbox-sdk-test_2ef3b77a31').then(function(sdk){
       }, false);
 
       function writeTemplate(text) {
-        composeView.setBodyText(text);
+        composeView.setBodyHTML(text);
         dropdownn.close();
       }
 
       composeView.addButton({
         title: "Templates",
         hasDropdown: true,
-        iconUrl: 'https://image.flaticon.com/icons/png/512/2541/2541988.png',
+        iconUrl: 'https://image.flaticon.com/icons/png/512/2258/2258853.png',
         onClick: function(event) {
           const iframe = document.createElement('iframe');
           iframe.classList.add('canvas');

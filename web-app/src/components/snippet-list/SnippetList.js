@@ -7,6 +7,10 @@ import PropTypes from 'prop-types';
 const useStyle = makeStyles((theme) => ({
     backgroundTitle: {
         backgroundColor: '#FFFFFF'
+    },
+    snippetsContent: {
+        flexGrow: 1,
+        overflow: 'auto'
     }
 }));
 
@@ -20,6 +24,7 @@ const SnippetList = ({
     return (
         <List
             {...props}
+            className={useClasses.snippetsContent}
             component="nav"
             subheader={
                 <ListSubheader className={useClasses.backgroundTitle}>
